@@ -1,11 +1,13 @@
 group node['kkafka']['group'] do
   action :create
+  gid node['kkafka']['gid']
   not_if "getent group #{node['kkafka']['group']}"
   not_if { node['install']['external_users'].casecmp("true") == 0 }
 end
 
 user node['kkafka']['user'] do
   action :create
+  uid node['kkafka']['uid']                           
   gid node['kkafka']['group']
   home node['kkafka']['user-home']
   shell "/bin/bash"
